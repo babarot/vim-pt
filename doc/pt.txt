@@ -1,0 +1,60 @@
+*pt.txt*   Plugin that integrates pt with Vim
+
+==============================================================================
+INTRODUCTION                                                               *pt*
+
+This plugin is a front for *pt* a.k.a. the platinum searcher. Pt can be used as
+a replacement for ack and ag. This plugin will allow you to run *pt* from vim,
+and shows the results in a split window.
+Then, it was heavily inspired by rking/ag.vim, but it was a heavily modified
+(40% smaller) fork that.
+
+:Pt[!] [options] {pattern} [{directory}]                                  *:Pt*
+
+    Search recursively in {directory} (which defaults to the current
+    directory) for the {pattern}. Behaves just like the |:grep| command, but
+    will open the |Quickfix| window for you. If [!] is not given the first
+    error is jumped to.
+
+:PtBuffer[!] [options] {pattern}                                    *:PtBuffer*
+
+    Search for {pattern} in all open buffers. Behaves just like the |:grep|
+    command, but will open the |Quickfix| window for you. If [!] is not given
+    the first error is jumped to.
+
+Files containing the search term will be listed in the split window, along
+with the line number of the occurrence, once for each occurrence. <Enter> on a
+line in this window will open the file, and place the cursor on the matching
+line.
+
+==============================================================================
+OPTIONS                                                            *pt-options*
+
+                                                                    *g:pt_args*
+The location of the Pt program, and any options you want passed to it before
+searching. Default: "pt --column -- nogroup". Example: >
+  let g:pt_args = "pt --nogroup --smart-case"
+<
+Note: the `--column` option was added in Pt 1.7.7. If pt.vim detects that
+you're using a lower version, the following default will be used instead: >
+  let g:pt_args = "pt --nogroup"
+
+It is recommended that you upgrade if possible for a better experience.
+
+                                                               *g:pt_highlight*
+
+If 1, highlight the search terms after searching. Default: 1. Example: >
+  let g:pt_highlight = 0
+<
+==============================================================================
+MAPPINGS                                                         *pt-mappings*
+
+The following keyboard shortcuts are available in the quickfix window:
+
+e/<CR>              open file and close the quickfix window.
+
+p                   preview file (open but maintain focus on pt.vim results).
+
+q                   close the quickfix window.
+
+  vim:tw=78:fo=tcq2:ft=help:norl:
